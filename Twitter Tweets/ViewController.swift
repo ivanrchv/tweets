@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     }
 
     func requestTweets(keyword: String, completion: @escaping ([Tweet]) -> Void) {
-        let url = URL(string: "https://api.twitter.com/1.1/search/tweets.json?count=100&q=\(keyword)")!
+        let url = URL(string: "https://api.twitter.com/1.1/search/tweets.json?count=100&q=\(keyword)&tweet_mode=extended")!
         var request = URLRequest(url: url)
         request.setValue(
             "Bearer AAAAAAAAAAAAAAAAAAAAAFZgKQEAAAAADiOLuLIuhW6o6UO6qY1wHc%2FMPwU%3DHQUPK1w0Mvn0gxPOiF1p433qqgPwmhxtWF8qiIheZzLuLLqJn6",

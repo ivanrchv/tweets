@@ -18,7 +18,7 @@ struct Tweet {
     }
     
     static func fromDict(_ dict: Dictionary<String, Any>) -> Tweet? {
-        guard let text = dict["text"] as? String,
+        guard let text = dict["full_text"] as? String,
             let userDict = dict["user"] as? Dictionary<String, Any>,
             let user = userDict["name"] as? String,
             let date = dict["created_at"] as? String else { return nil }
