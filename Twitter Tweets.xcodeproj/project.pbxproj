@@ -14,6 +14,7 @@
 		D7841224257A55940050DDB5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7841222257A55940050DDB5 /* LaunchScreen.storyboard */; };
 		D784122F257A55940050DDB5 /* Twitter_TweetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D784122E257A55940050DDB5 /* Twitter_TweetsTests.swift */; };
 		D784123A257A55940050DDB5 /* Twitter_TweetsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7841239257A55940050DDB5 /* Twitter_TweetsUITests.swift */; };
+		D7841293257AE80B0050DDB5 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7841292257AE80B0050DDB5 /* Tweet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		D7841235257A55940050DDB5 /* Twitter TweetsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Twitter TweetsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7841239257A55940050DDB5 /* Twitter_TweetsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Twitter_TweetsUITests.swift; sourceTree = "<group>"; };
 		D784123B257A55940050DDB5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D7841292257AE80B0050DDB5 /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		D7841218257A55920050DDB5 /* Twitter Tweets */ = {
 			isa = PBXGroup;
 			children = (
+				D7841291257AE7D80050DDB5 /* Model */,
 				D7841219257A55920050DDB5 /* AppDelegate.swift */,
 				D784121B257A55920050DDB5 /* ViewController.swift */,
 				D784121D257A55920050DDB5 /* Main.storyboard */,
@@ -123,6 +126,14 @@
 				D784123B257A55940050DDB5 /* Info.plist */,
 			);
 			path = "Twitter TweetsUITests";
+			sourceTree = "<group>";
+		};
+		D7841291257AE7D80050DDB5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D7841292257AE80B0050DDB5 /* Tweet.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7841293257AE80B0050DDB5 /* Tweet.swift in Sources */,
 				D784121C257A55920050DDB5 /* ViewController.swift in Sources */,
 				D784121A257A55920050DDB5 /* AppDelegate.swift in Sources */,
 			);
