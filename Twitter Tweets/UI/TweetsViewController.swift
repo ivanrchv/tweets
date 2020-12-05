@@ -13,6 +13,7 @@ class TweetsViewController: UIViewController {
 
     @IBOutlet weak var tweetSearchBar: UISearchBar!
     @IBOutlet weak var tweetTableView: UITableView!
+    @IBOutlet weak var loadingView: UIActivityIndicatorView!
     
     var tweets = [Tweet]()
     
@@ -47,12 +48,12 @@ extension TweetsViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         guard let text = searchBar.text else { return }
         
-        //TODO: show loading
+        loadingView.startAnimating()
         tweetManager.getTweets(keyword: text) { [weak self] tweets in
             guard let strongSelf = self else { return }
             
             DispatchQueue.main.async {
-                //TODO: hide loading, possibly handle errors
+                strongSelf.loadingView.stopAnimating()
                 strongSelf.updateTweets(tweets)
             }
         }

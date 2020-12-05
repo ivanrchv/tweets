@@ -84,6 +84,9 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="uZo-mS-3qt"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="pmC-vg-tYQ">
+                                <rect key="frame" x="177.5" y="324" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -92,12 +95,15 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="SbO-6x-cQm" secondAttribute="bottom" id="5Np-AY-hTJ"/>
                             <constraint firstItem="9Ho-Qa-8wn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HKG-yL-mk4"/>
                             <constraint firstItem="9Ho-Qa-8wn" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="PXJ-wj-5IO"/>
+                            <constraint firstItem="pmC-vg-tYQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Rfr-b4-0Bc"/>
+                            <constraint firstItem="pmC-vg-tYQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Sqm-D9-Gfc"/>
                             <constraint firstItem="9Ho-Qa-8wn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="b4u-Wi-J6n"/>
                             <constraint firstItem="SbO-6x-cQm" firstAttribute="top" secondItem="9Ho-Qa-8wn" secondAttribute="bottom" id="nNM-fz-1Ns"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="loadingView" destination="pmC-vg-tYQ" id="c6v-iS-8nQ"/>
                         <outlet property="tweetSearchBar" destination="9Ho-Qa-8wn" id="QI7-pX-cdW"/>
                         <outlet property="tweetTableView" destination="SbO-6x-cQm" id="rOX-Iw-mEL"/>
                     </connections>
