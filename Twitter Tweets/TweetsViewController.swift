@@ -1,0 +1,49 @@
+//
+//  ViewController.swift
+//  Twitter Tweets
+//
+//  Created by Ivan Raychev on 4.12.20.
+//  Copyright © 2020 Ivan Raychev. All rights reserved.
+//
+
+import UIKit
+
+class TweetsViewController: UIViewController {
+    let tweetManager = TweetManager(fetcher: TweetFetcher())
+
+    @IBOutlet weak var tweetSearchBar: UISearchBar!
+    @IBOutlet weak var tweetTableView: UITableView!
+    
+    var tweets = [Tweet]()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        tweetManager.getTweets(keyword: "test") { [weak self] tweets in
+            guard let strongSelf = self else { return }
+            
+            DispatchQueue.main.async {
+                strongSelf.tweets = tweets
+                strongSelf.tweetTableView.reloadData()
+            }
+        }
+    }
+}
+
+extension TweetsViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tweets.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell") as? TweetCell else {
+            return UITableViewCell()
+        }
+        
+        cell.populate(tweet: tweets[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //TODO: open URL in browser: https://twitter.com/anyuser/status/<statusid>
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}

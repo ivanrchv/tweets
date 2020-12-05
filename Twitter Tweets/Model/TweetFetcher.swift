@@ -9,7 +9,7 @@
 import Foundation
 
 class TweetFetcher {
-
+    //TODO: extract Bearer
     func requestTweets(keyword: String, completion: @escaping ([Dictionary<String, Any>]) -> Void) {
         let url = URL(string: "https://api.twitter.com/1.1/search/tweets.json?count=100&tweet_mode=extended&q=\(keyword)")!
         var request = URLRequest(url: url)

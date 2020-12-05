@@ -19,7 +19,7 @@ class TweetManager {
     }
     
     func getTweets(keyword: String, completion: @escaping ([Tweet]) -> Void) {
-        fetcher.requestTweets(keyword: keyword) { [weak self] (tweets) in
+        fetcher.requestTweets(keyword: keyword) { [weak self] tweets in
             guard let strongSelf = self else { return }
             completion(strongSelf.tweetsFromArray(tweets))
         }
