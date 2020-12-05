@@ -105,14 +105,9 @@
 		D7841218257A55920050DDB5 /* Twitter Tweets */ = {
 			isa = PBXGroup;
 			children = (
+				D784129A257BE8BE0050DDB5 /* UI */,
 				D7841291257AE7D80050DDB5 /* Model */,
-				D7841219257A55920050DDB5 /* AppDelegate.swift */,
-				D784121B257A55920050DDB5 /* TweetsViewController.swift */,
-				D7841298257BDA260050DDB5 /* TweetCell.swift */,
-				D784121D257A55920050DDB5 /* Main.storyboard */,
-				D7841220257A55940050DDB5 /* Assets.xcassets */,
-				D7841222257A55940050DDB5 /* LaunchScreen.storyboard */,
-				D7841225257A55940050DDB5 /* Info.plist */,
+				D784129B257BE9300050DDB5 /* Default Files */,
 			);
 			path = "Twitter Tweets";
 			sourceTree = "<group>";
@@ -143,6 +138,27 @@
 				D7841294257BBCA90050DDB5 /* TweetFetcher.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D784129A257BE8BE0050DDB5 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D784121B257A55920050DDB5 /* TweetsViewController.swift */,
+				D7841298257BDA260050DDB5 /* TweetCell.swift */,
+				D784121D257A55920050DDB5 /* Main.storyboard */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		D784129B257BE9300050DDB5 /* Default Files */ = {
+			isa = PBXGroup;
+			children = (
+				D7841219257A55920050DDB5 /* AppDelegate.swift */,
+				D7841220257A55940050DDB5 /* Assets.xcassets */,
+				D7841222257A55940050DDB5 /* LaunchScreen.storyboard */,
+				D7841225257A55940050DDB5 /* Info.plist */,
+			);
+			path = "Default Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
