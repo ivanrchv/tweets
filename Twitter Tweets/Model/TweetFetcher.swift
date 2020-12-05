@@ -8,10 +8,21 @@
 
 import Foundation
 
+enum TweetResponse {
+    case success([Dictionary<String, Any>])
+    case error(String)
+}
+
 class TweetFetcher {
     //TODO: extract Bearer
-    func requestTweets(keyword: String, completion: @escaping ([Dictionary<String, Any>]) -> Void) {
-        let url = URL(string: "https://api.twitter.com/1.1/search/tweets.json?count=100&tweet_mode=extended&q=\(keyword)")!
+    func requestTweets(keyword: String, completion: @escaping (TweetResponse) -> Void) {
+        let urlString = "https://api.twitter.com/1.1/search/tweets.json?count=100&tweet_mode=extended&q=\(keyword)"
+        guard let escapedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+            let url = URL(string: escapedString) else {
+            completion(.error("failed to build url"))
+            return
+        }
+        
         var request = URLRequest(url: url)
         request.setValue(
             "Bearer AAAAAAAAAAAAAAAAAAAAAFZgKQEAAAAADiOLuLIuhW6o6UO6qY1wHc%2FMPwU%3DHQUPK1w0Mvn0gxPOiF1p433qqgPwmhxtWF8qiIheZzLuLLqJn6",
@@ -22,26 +33,24 @@ class TweetFetcher {
             guard let data = data,
                 let response = response as? HTTPURLResponse,
                 error == nil else {
-                    print("error", error ?? "Unknown error")
+                    completion(.error(error?.localizedDescription ?? "unknown error"))
                     return
             }
             
             guard (200 ... 299) ~= response.statusCode else {
-                print("statusCode should be 2xx, but is \(response.statusCode)")
-                print("response = \(response)")
+                completion(.error("statusCode should be 2xx, but is \(response.statusCode)"))
                 return
             }
             
             do {
                 if let json = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String, Any>,
-                    let statuses = json["statuses"] as? [Dictionary<String, Any>]
-                {
-                    completion(statuses)
+                    let statuses = json["statuses"] as? [Dictionary<String, Any>] {
+                    completion(.success(statuses))
                 } else {
-                    print("bad json")
+                    completion(.error("bad json"))
                 }
             } catch let error as NSError {
-                print(error)
+                completion(.error(error.localizedDescription))
             }
         }
         

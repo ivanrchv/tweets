@@ -21,6 +21,12 @@ class TweetsViewController: UIViewController {
         self.tweets = tweets
         tweetTableView.reloadData()
     }
+    
+    private func showError(_ errorText: String) {
+        let alert = UIAlertController(title: "Sorry, an error occurred", message: errorText, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true)
+    }
 }
 
 extension TweetsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -49,12 +55,20 @@ extension TweetsViewController: UISearchBarDelegate {
         guard let text = searchBar.text else { return }
         
         loadingView.startAnimating()
-        tweetManager.getTweets(keyword: text) { [weak self] tweets in
+        tweetManager.getTweets(keyword: text) { [weak self] result in
             guard let strongSelf = self else { return }
             
             DispatchQueue.main.async {
                 strongSelf.loadingView.stopAnimating()
-                strongSelf.updateTweets(tweets)
+                
+                switch result {
+                case .success(let tweets):
+                    strongSelf.updateTweets(tweets)
+                    
+                case .error(let errorText):
+                    strongSelf.showError(errorText)
+                }
+                
             }
         }
     }

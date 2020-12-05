@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum TweetResult {
+    case success([Tweet])
+    case error(String)
+}
+
 class TweetManager {
     private let fetcher: TweetFetcher
     private let incomingDateFormatter = DateFormatter()
@@ -18,10 +23,16 @@ class TweetManager {
         self.setupDateFormatters()
     }
     
-    func getTweets(keyword: String, completion: @escaping ([Tweet]) -> Void) {
-        fetcher.requestTweets(keyword: keyword) { [weak self] tweets in
+    func getTweets(keyword: String, completion: @escaping (TweetResult) -> Void) {
+        fetcher.requestTweets(keyword: keyword) { [weak self] response in
             guard let strongSelf = self else { return }
-            completion(strongSelf.tweetsFromArray(tweets))
+            switch response {
+            case .error(let errorText):
+                completion(.error(errorText))
+                
+            case .success(let tweets):
+                completion(.success(strongSelf.tweetsFromArray(tweets)))
+            }
         }
     }
     
