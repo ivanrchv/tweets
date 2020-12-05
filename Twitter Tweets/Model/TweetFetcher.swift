@@ -14,7 +14,6 @@ enum TweetResponse {
 }
 
 class TweetFetcher {
-    //TODO: extract Bearer
     func requestTweets(keyword: String, completion: @escaping (TweetResponse) -> Void) {
         let urlString = "https://api.twitter.com/1.1/search/tweets.json?count=100&tweet_mode=extended&q=\(keyword)"
         guard let escapedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -24,9 +23,8 @@ class TweetFetcher {
         }
         
         var request = URLRequest(url: url)
-        request.setValue(
-            "Bearer AAAAAAAAAAAAAAAAAAAAAFZgKQEAAAAADiOLuLIuhW6o6UO6qY1wHc%2FMPwU%3DHQUPK1w0Mvn0gxPOiF1p433qqgPwmhxtWF8qiIheZzLuLLqJn6",
-            forHTTPHeaderField: "Authorization")
+        let bearer = "AAAAAAAAAAAAAAAAAAAAAFZgKQEAAAAADiOLuLIuhW6o6UO6qY1wHc%2FMPwU%3DHQUPK1w0Mvn0gxPOiF1p433qqgPwmhxtWF8qiIheZzLuLLqJn6"
+        request.setValue( "Bearer \(bearer)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "GET"
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in

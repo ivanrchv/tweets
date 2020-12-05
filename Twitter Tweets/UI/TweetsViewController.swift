@@ -44,7 +44,12 @@ extension TweetsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //TODO: open URL in browser: https://twitter.com/anyuser/status/<statusid>
+        if tweets.count > indexPath.row,
+            let url = URL(string: "https://twitter.com/anyuser/status/\(tweets[indexPath.row].id)"),
+            UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -52,7 +57,7 @@ extension TweetsViewController: UITableViewDataSource, UITableViewDelegate {
 extension TweetsViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        guard let text = searchBar.text else { return }
+        guard let text = searchBar.text, text.count > 0 else { return }
         
         loadingView.startAnimating()
         tweetManager.getTweets(keyword: text) { [weak self] result in
@@ -68,7 +73,6 @@ extension TweetsViewController: UISearchBarDelegate {
                 case .error(let errorText):
                     strongSelf.showError(errorText)
                 }
-                
             }
         }
     }

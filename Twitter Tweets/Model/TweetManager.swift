@@ -45,9 +45,11 @@ class TweetManager {
             let userDict = dict["user"] as? Dictionary<String, Any>,
             let user = userDict["name"] as? String,
             let rawDate = dict["created_at"] as? String,
-            let date = convertDateStringFormat(rawDate) else { return nil }
+            let date = convertDateStringFormat(rawDate),
+            let rawId = (dict["id"]) else { return nil }
         
-        return Tweet(text: text, user: user, date: date)
+        let id = "\(rawId)"
+        return Tweet(text: text, user: user, date: date, id: id)
     }
 
     private func setupDateFormatters() {

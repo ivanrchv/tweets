@@ -12,7 +12,7 @@ struct Tweet {
     let text: String
     let user: String
     let date: String
-    //TODO: add id
+    let id: String
     
     func description() -> String {
         return "text: \(text), user:\(user), date:\(date)"
