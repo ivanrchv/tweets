@@ -50,9 +50,8 @@ class TweetManager {
             let user = userDict["name"] as? String,
             let rawDate = dict["created_at"] as? String,
             let date = convertDateStringFormat(rawDate),
-            let rawId = (dict["id"]) else { return nil }
+            let id = (dict["id_str"]) as? String else { return nil }
         
-        let id = "\(rawId)"
         return Tweet(text: text, user: user, date: date, id: id)
     }
 

@@ -21,9 +21,9 @@ class MockTweetFetcher: TweetFetching {
             case .standart:
                 return [
                     "statuses": [
-                        ["id": 1111, "full_text": "Test tweet 1", "created_at": "Fri Dec 04 13:04:05 +0000 2020", "user": ["name": "User1"]],
-                        ["id": 2222, "full_text": "Test tweet 2", "created_at": "Fri Dec 04 13:04:05 +0000 2020", "user": ["name": "User2"]],
-                        ["id": 3333, "full_text": "Test tweet 3", "created_at": "Fri Dec 04 13:04:05 +0000 2020", "user": ["name": "User3"]]
+                        ["id_str": "1111", "full_text": "Test tweet 1", "created_at": "Fri Dec 04 13:04:05 +0000 2020", "user": ["name": "User1"]],
+                        ["id_str": "2222", "full_text": "Test tweet 2", "created_at": "Fri Dec 04 13:04:05 +0000 2020", "user": ["name": "User2"]],
+                        ["id_str": "3333", "full_text": "Test tweet 3", "created_at": "Fri Dec 04 13:04:05 +0000 2020", "user": ["name": "User3"]]
                     ]
                 ]
                 
@@ -36,9 +36,9 @@ class MockTweetFetcher: TweetFetching {
             case .invalidTweets:
                 return [
                     "statuses": [
-                        ["id": 1111, "full_text": "Test tweet 1", "created_at": "Fri Dec 04 13:04:05 +0000 2020"],
-                        ["id": 2222, "full_text": "Test tweet 2", "user": ["name": "User2"]],
-                        ["id": 3333, "created_at": "Fri Dec 04 13:04:05 +0000 2020", "user": ["name": "User3"]],
+                        ["id_str": "1111", "full_text": "Test tweet 1", "created_at": "Fri Dec 04 13:04:05 +0000 2020"],
+                        ["id_str": "2222", "full_text": "Test tweet 2", "user": ["name": "User2"]],
+                        ["id_str": "3333", "created_at": "Fri Dec 04 13:04:05 +0000 2020", "user": ["name": "User3"]],
                         ["full_text": "Test tweet 4", "created_at": "Fri Dec 04 13:04:05 +0000 2020", "user": ["name": "User4"]]
                     ]
                 ]
