@@ -14,11 +14,11 @@ enum TweetResult {
 }
 
 class TweetManager {
-    private let fetcher: TweetFetcher
+    private let fetcher: TweetFetching
     private let incomingDateFormatter = DateFormatter()
     private let displayDateFormatter = DateFormatter()
     
-    init(fetcher: TweetFetcher) {
+    init(fetcher: TweetFetching) {
         self.fetcher = fetcher
         self.setupDateFormatters()
     }
@@ -30,8 +30,12 @@ class TweetManager {
             case .error(let errorText):
                 completion(.error(errorText))
                 
-            case .success(let tweets):
-                completion(.success(strongSelf.tweetsFromArray(tweets)))
+            case .success(let json):
+                if let statuses = json["statuses"] as? [Dictionary<String, Any>] {
+                    completion(.success(strongSelf.tweetsFromArray(statuses)))
+                } else {
+                    completion(.error("bad json"))
+                }
             }
         }
     }

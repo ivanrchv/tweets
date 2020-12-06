@@ -9,11 +9,15 @@
 import Foundation
 
 enum TweetResponse {
-    case success([Dictionary<String, Any>])
+    case success(Dictionary<String, Any>)
     case error(String)
 }
 
-class TweetFetcher {
+protocol TweetFetching {
+    func requestTweets(keyword: String, completion: @escaping (TweetResponse) -> Void)
+}
+
+class TweetFetcher: TweetFetching {
     func requestTweets(keyword: String, completion: @escaping (TweetResponse) -> Void) {
         let urlString = "https://api.twitter.com/1.1/search/tweets.json?count=100&tweet_mode=extended&q=\(keyword)"
         guard let escapedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
@@ -41,9 +45,8 @@ class TweetFetcher {
             }
             
             do {
-                if let json = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String, Any>,
-                    let statuses = json["statuses"] as? [Dictionary<String, Any>] {
-                    completion(.success(statuses))
+                if let json = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? Dictionary<String, Any> {
+                    completion(.success(json))
                 } else {
                     completion(.error("bad json"))
                 }
