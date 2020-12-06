@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TweetResult {
+enum TweetResult: Equatable {    
     case success([Tweet])
     case error(String)
 }

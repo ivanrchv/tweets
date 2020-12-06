@@ -11,26 +11,51 @@ import XCTest
 
 class Twitter_TweetsTests: XCTestCase {
     
+    private var fetcher: TweetFetching!
+    private var manager: TweetManager!
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        fetcher = MockTweetFetcher()
+        manager = TweetManager(fetcher: fetcher)
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testStandart() {
+        getTweets(configuration: .standart) { (result) in
+            guard case .success(let tweets) = result else {
+                XCTFail("getTweets not succesful")
+                return
+            }
+            XCTAssertEqual(tweets.count, 3)
         }
     }
     
+    func testEmptyDict() {
+        getTweets(configuration: .emptyDict) { (result) in
+            XCTAssertEqual(result, TweetResult.error("bad json"))
+        }
+    }
+    
+    func testEmptyArray() {
+        getTweets(configuration: .dictWithEmptyArray) { (result) in
+            XCTAssertEqual(result, TweetResult.success([]))
+        }
+    }
+    
+    func testInvalidTweets() {
+        getTweets(configuration: .dictWithEmptyArray) { (result) in
+            XCTAssertEqual(result, TweetResult.success([]))
+        }
+    }
+    
+    func testFetchingError() {
+        getTweets(configuration: .fetchingError) { (result) in
+            XCTAssertEqual(result, TweetResult.error("fetching error"))
+        }
+    }
+    
+    func getTweets(configuration: MockTweetFetcher.Configuration, completion: @escaping (TweetResult) -> Void) {
+        manager.getTweets(keyword: configuration.rawValue, completion: completion)
+    }
 }

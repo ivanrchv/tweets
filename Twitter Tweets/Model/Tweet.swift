@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Tweet {
+struct Tweet: Equatable {
     let text: String
     let user: String
     let date: String
