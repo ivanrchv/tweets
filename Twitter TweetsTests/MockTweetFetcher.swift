@@ -10,7 +10,7 @@
 
 class MockTweetFetcher: TweetFetching {
     enum Configuration: String {
-        case standart
+        case standard
         case emptyDict
         case dictWithEmptyArray
         case invalidTweets
@@ -18,7 +18,7 @@ class MockTweetFetcher: TweetFetching {
         
         func jsonDict() -> Dictionary<String, Any>? {
             switch self {
-            case .standart:
+            case .standard:
                 return [
                     "statuses": [
                         ["id_str": "1111", "full_text": "Test tweet 1", "created_at": "Fri Dec 04 13:04:05 +0000 2020", "user": ["name": "User1"]],

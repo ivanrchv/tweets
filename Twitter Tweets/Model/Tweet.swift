@@ -13,8 +13,4 @@ struct Tweet: Equatable {
     let user: String
     let date: String
     let id: String
-    
-    func description() -> String {
-        return "text: \(text), user:\(user), date:\(date)"
-    }
 }

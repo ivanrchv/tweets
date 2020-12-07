@@ -21,8 +21,8 @@ class Twitter_TweetsTests: XCTestCase {
         manager = TweetManager(fetcher: fetcher)
     }
     
-    func testStandart() {
-        getTweets(configuration: .standart) { (result) in
+    func testStandard() {
+        getTweets(configuration: .standard) { (result) in
             guard case .success(let tweets) = result else {
                 XCTFail("getTweets not succesful")
                 return
@@ -55,7 +55,7 @@ class Twitter_TweetsTests: XCTestCase {
         }
     }
     
-    func getTweets(configuration: MockTweetFetcher.Configuration, completion: @escaping (TweetResult) -> Void) {
+    private func getTweets(configuration: MockTweetFetcher.Configuration, completion: @escaping (TweetResult) -> Void) {
         manager.getTweets(keyword: configuration.rawValue, completion: completion)
     }
 }

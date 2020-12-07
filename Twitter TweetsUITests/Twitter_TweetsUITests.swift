@@ -9,7 +9,7 @@
 import XCTest
 
 class Twitter_TweetsUITests: XCTestCase {
-    var app: XCUIApplication!
+    private var app: XCUIApplication!
     
     override func setUp() {
         super.setUp()
@@ -25,5 +25,4 @@ class Twitter_TweetsUITests: XCTestCase {
         searchField.typeText("test\n")
         XCTAssert(app.tables.element.cells.firstMatch.waitForExistence(timeout: 3))
     }
-    
 }

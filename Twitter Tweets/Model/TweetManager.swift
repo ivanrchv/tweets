@@ -26,6 +26,7 @@ class TweetManager {
     func getTweets(keyword: String, completion: @escaping (TweetResult) -> Void) {
         fetcher.requestTweets(keyword: keyword) { [weak self] response in
             guard let strongSelf = self else { return }
+            
             switch response {
             case .error(let errorText):
                 completion(.error(errorText))

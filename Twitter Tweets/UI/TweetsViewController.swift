@@ -9,13 +9,32 @@
 import UIKit
 
 class TweetsViewController: UIViewController {
-    let tweetManager = TweetManager(fetcher: TweetFetcher())
+    private let tweetManager = TweetManager(fetcher: TweetFetcher())
 
     @IBOutlet weak var tweetSearchBar: UISearchBar!
     @IBOutlet weak var tweetTableView: UITableView!
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
     
-    var tweets = [Tweet]()
+    fileprivate var tweets = [Tweet]()
+    
+    fileprivate func searchTweets(_ keyword: String) {
+        loadingView.startAnimating()
+        tweetManager.getTweets(keyword: keyword) { [weak self] result in
+            guard let strongSelf = self else { return }
+            
+            DispatchQueue.main.async {
+                strongSelf.loadingView.stopAnimating()
+                
+                switch result {
+                case .success(let tweets):
+                    strongSelf.updateTweets(tweets)
+                    
+                case .error(let errorText):
+                    strongSelf.showError(errorText)
+                }
+            }
+        }
+    }
     
     private func updateTweets(_ tweets: [Tweet]) {
         self.tweets = tweets
@@ -59,21 +78,6 @@ extension TweetsViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         guard let text = searchBar.text, text.count > 0 else { return }
         
-        loadingView.startAnimating()
-        tweetManager.getTweets(keyword: text) { [weak self] result in
-            guard let strongSelf = self else { return }
-            
-            DispatchQueue.main.async {
-                strongSelf.loadingView.stopAnimating()
-                
-                switch result {
-                case .success(let tweets):
-                    strongSelf.updateTweets(tweets)
-                    
-                case .error(let errorText):
-                    strongSelf.showError(errorText)
-                }
-            }
-        }
+        searchTweets(text)
     }
 }
